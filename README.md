@@ -5,7 +5,7 @@ A simple buffer cache implementation for simulation of `getblk` and `brelse` alg
 Note:- Because there is one to one correspondence between block and buffer, buffer and block are used interchangeable in this readme.
 
 
-##There are two programs:-
+## There are two programs:-
 1	main_handler.cpp
 2	process.cpp
 
@@ -45,7 +45,7 @@ Main_handler fulfills requests of block for every process.
 
 
 
-##Case 1: Process requests for a block and it exists in hashQueue and  corresponding buffer is free.
+## Case 1: Process requests for a block and it exists in hashQueue and  corresponding buffer is free.
 ∙	Main_handler simply marks the buffer busy and removes the buffer from free list. 
 ∙	Main_handler then writes on shared memory (shmM) to inform the process that its buffer allocation request is accomplished.
 
@@ -66,7 +66,7 @@ Main_handler fulfills requests of block for every process.
 ∙	And later when the asynchronous write of a buffer is completed by child, main_handler is interrupted by signal. Then main_handler adds the corresponding buffer to the front of free list.
 ∙	Moreover main_handler wakes up sleeping processes (info exists in two vectors: freeBuffer and emptyFreeList ) if exists through signal.
 
-##Case 5: Process request for a block, it doesn't exist in hashQueue and freeList is empty.
+## Case 5: Process request for a block, it doesn't exist in hashQueue and freeList is empty.
 ∙	Main_handler informs the process that there is no buffer available through shared memory(shmM).
 ∙	Main_handler puts the corresponding blockNumber and processId (for later reference i.e to wake up the corresponding process when any buffer becomes free/available) into vector (emptyFreeList).
 ∙	When later any buffer is released by a process, all sleeping processes are woken up by main_handler through signal.
@@ -75,7 +75,7 @@ Main_handler fulfills requests of block for every process.
 Note:- When a buffer is released by a process, main_handler will automatically wake up all sleeping processes.
 
 
-##Assumptions:-
+## Assumptions:-
 
 ∙	  Process will done with block after a fixed amount of time (10 seconds) and  corresponding buffer will be released by main_handler and buffer will be marked free. 
 
@@ -84,7 +84,7 @@ Note:- When a buffer is released by a process, main_handler will automatically w
 ∙	  Buffer released is always marked delayed write by main_handler.
 
 
-##Communication between main_handler(that runs getBlock) and processes(that requests for buffer allocation or release) is accomplished through 2 shared memories.
+## Communication between main_handler(that runs getBlock) and processes(that requests for buffer allocation or release) is accomplished through 2 shared memories.
 
 
 1. shmP (requests from processes for a block)
