@@ -1,6 +1,6 @@
 # Buffer Cache
 
-A simple buffer cache implementation for simulation of `getblk` and `brelse` algorithms that that fulfills allocation and release requests of processes for blocks.
+A simple buffer cache implementation for simulation of `getblk` and `brelse` algorithms that fulfills allocation and release requests of processes for blocks.
 
 ***Note:-*** Because there is one to one correspondence between block and buffer, buffer and block are used interchangeable in this readme.
 
