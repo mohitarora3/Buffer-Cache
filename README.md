@@ -86,20 +86,20 @@ Main_handler fulfills **requests** of block for every process.
 ## Communication between main_handler(that runs getBlock) and processes(that requests for buffer allocation or release) is accomplished through 2 shared memories.
 
 
-1. shmP (requests from processes for a block)
+**1. shmP (requests from processes for a block)**
     - direction from process to main_handler i.e processes write and main_handler reads.
 
-2. shmM (process get to know whether buffer is allocated or not through this shared memory)
+**2. shmM (process get to know whether buffer is allocated or not through this shared memory)**
     - direction from main_handler to process i.e main_handler writes processes read.
 
 
-shmP:-
+**shmP:-**
 -    It is an integer pointer which points to shared memory.
 -    Processes insert into this integer array to request for a block and also to release for a block.
 -    First entry in shmP tells the count of number of total requests i.e block allocation and block release requests.
 -    Main handler initializes the first entry with 0 to indicate no requests in the beginning.
 -    Starting from second entry each triplet indicates either a buffer allocation request or a buffer release request.
-### Two types of triplets are used to distinguish between block allocation and release requests.
+#### Two types of triplets are used to distinguish between block allocation and release requests.
  
 ```
 1.  (1, processId, blockNumber)
@@ -114,18 +114,19 @@ shmP:-
 ```
 ***Processes increment first entry of shared memory (shmP) for each request.***
 
-shmM:-
--      It is an integer pointer which points to shared memory.
--       Main_handler writes response of processes request's into it and processes read from it.
--       First entry in shmM tells the count of number of total responses.
--       Starting from second entry each pair indicates response of buffer allocation request.
+**shmM:-**
+- It is an integer pointer which points to shared memory.
+- Main_handler writes response of processes request's into it and processes read from it.
+- First entry in shmM tells the count of number of total responses.
+- Starting from second entry each pair indicates response of buffer allocation request.
          
            ```
            Pair :- (processId,1/2)
                 - processId- process id of process.
                 - 1 indicates buffer has been successfully allocated to the corresponding process.
                 - 2 indicates buffer has not been allocated.
-                 ```
+                
+          ```
 
 
 
