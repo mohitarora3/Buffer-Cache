@@ -6,8 +6,8 @@ Note:- Because there is one to one correspondence between block and buffer, buff
 
 
 ## There are two programs:-
-1   main_handler.cpp
-2   process.cpp
+1.   main_handler.cpp
+2.   process.cpp
 
 ## How to run:- 
     g++ -o main main_handler.cpp
@@ -72,7 +72,7 @@ Main_handler fulfills **requests** of block for every process.
 - When later any buffer is released by a process, all sleeping processes are woken up by main_handler through signal.
 
  
-'''Note:- When a buffer is released by a process, main_handler will automatically wake up all sleeping processes.'''
+**Note:-*** When a buffer is released by a process, main_handler will automatically wake up all sleeping processes.
 
 
 ## Assumptions:-
@@ -88,9 +88,9 @@ Main_handler fulfills **requests** of block for every process.
 
 1. shmP (requests from processes for a block)
     - direction from process to main_handler i.e processes write and main_handler reads.
-### There are two types of requests possible:
+** There are two types of requests possible:
 1. Buffer allocation request
-2. Buffer release request
+2. Buffer release request**
 
 
 2. shmM (process get to know whether buffer is allocated or not through this shared memory)
@@ -127,11 +127,6 @@ shmM:-
                 1 indicates buffer has been successfully allocated to the corresponding process.
                 2 indicates buffer has not been allocated.
 
-
-##What I have learnt:-
--      Use of shared memory.
--      Creation and handling of child processes (fork system call).
--      Use of signals (signal handling). 
 
 
     
