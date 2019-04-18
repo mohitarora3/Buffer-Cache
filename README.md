@@ -119,12 +119,13 @@ Main_handler fulfills **requests** of block for every process.
 - Main_handler writes response of processes request's into it and processes read from it.
 - First entry in shmM tells the count of number of total responses.
 - Starting from second entry each pair indicates response of buffer allocation request.
+
   ```
   Pair :- (processId,1/2)
                 - processId- process id of process.
                 - 1 indicates buffer has been successfully allocated to the corresponding process.
                 - 2 indicates buffer has not been allocated.
- ```
+  ```
 
 
 
