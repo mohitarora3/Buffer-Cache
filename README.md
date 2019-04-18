@@ -2,7 +2,7 @@
 
 A simple buffer cache implementation for simulation of `getblk` and `brelse` algorithms that that fulfills allocation and release requests of processes for blocks.
 
-Note:- Because there is one to one correspondence between block and buffer, buffer and block are used interchangeable in this readme.
+***Note:-*** Because there is one to one correspondence between block and buffer, buffer and block are used interchangeable in this readme.
 
 
 ## There are two programs:-
@@ -33,7 +33,7 @@ Note:- Because there is one to one correspondence between block and buffer, buff
 
 
 
-Main_handler runs in infinite loop that continuously looking for buffer allocation and buffer release requests.
+Main_handler runs in **infinite loop** that continuously looking for buffer allocation and buffer release requests.
 
 Processes request main_handler for a particular block through **shared memory**.
 
@@ -101,6 +101,7 @@ shmP:-
 -    Starting from second entry each triplet indicates either a buffer allocation request or a buffer release request.
 ### Two types of triplets are used to distinguish between block allocation and release requests.
  
+'''
 1.  (1, processId, blockNumber)
                 - 1 indicates buffer allocation request.
                 - processId- process id of process.
@@ -110,7 +111,8 @@ shmP:-
                 - processId- process id of process.
                 - 0-release request of read block (i.e initially buffer is allocated for read request)
                 - 1-release request of write block (i.e initially buffer is allocated for write request)
-```Processes increment first entry of shared memory (shmP) for each request.```
+'''
+***Processes increment first entry of shared memory (shmP) for each request.***
 
 shmM:-
 -      It is an integer pointer which points to shared memory.
@@ -118,10 +120,10 @@ shmM:-
 -       First entry in shmM tells the count of number of total responses.
 -       Starting from second entry each pair indicates response of buffer allocation request.
          
-            Pair :- (processId,1/2)
+           ``` Pair :- (processId,1/2)
                 - processId- process id of process.
                 - 1 indicates buffer has been successfully allocated to the corresponding process.
-                - 2 indicates buffer has not been allocated.
+                - 2 indicates buffer has not been allocated. ```
 
 
 
