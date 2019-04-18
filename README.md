@@ -72,7 +72,7 @@ Main_handler fulfills **requests** of block for every process.
 - When later any buffer is released by a process, all sleeping processes are woken up by main_handler through signal.
 
  
-**Note:-*** When a buffer is released by a process, main_handler will automatically wake up all sleeping processes.
+***Note:-*** When a buffer is released by a process, main_handler will automatically wake up all sleeping processes.
 
 
 ## Assumptions:-
@@ -88,10 +88,6 @@ Main_handler fulfills **requests** of block for every process.
 
 1. shmP (requests from processes for a block)
     - direction from process to main_handler i.e processes write and main_handler reads.
-** There are two types of requests possible:
-1. Buffer allocation request
-2. Buffer release request**
-
 
 2. shmM (process get to know whether buffer is allocated or not through this shared memory)
     - direction from main_handler to process i.e main_handler writes processes read.
@@ -103,18 +99,18 @@ shmP:-
 -    First entry in shmP tells the count of number of total requests i.e block allocation and block release requests.
 -    Main handler initializes the first entry with 0 to indicate no requests in the beginning.
 -    Starting from second entry each triplet indicates either a buffer allocation request or a buffer release request.
-Two types of triplets are used to distinguish between block allocation and release requests.
+### Two types of triplets are used to distinguish between block allocation and release requests.
  
 1.  (1, processId, blockNumber)
-                1 indicates buffer allocation request.
-                processId- process id of process.
+                - 1 indicates buffer allocation request.
+                - processId- process id of process.
                 blockNumber- blockNumber of disk block.
-      2. (2, processId, 0/1)
-                2 indicates buffer release request.
-                processId- process id of process.
-                0-release request of read block (i.e initially buffer is allocated for read request)
-                1-release request of write block (i.e initially buffer is allocated for write request)
--      Processes increment first entry of shared memory (shmP) for each request.
+2. (2, processId, 0/1)
+                - 2 indicates buffer release request.
+                - processId- process id of process.
+                - 0-release request of read block (i.e initially buffer is allocated for read request)
+                - 1-release request of write block (i.e initially buffer is allocated for write request)
+```Processes increment first entry of shared memory (shmP) for each request.```
 
 shmM:-
 -      It is an integer pointer which points to shared memory.
@@ -123,9 +119,9 @@ shmM:-
 -       Starting from second entry each pair indicates response of buffer allocation request.
          
             Pair :- (processId,1/2)
-                processId- process id of process.
-                1 indicates buffer has been successfully allocated to the corresponding process.
-                2 indicates buffer has not been allocated.
+                - processId- process id of process.
+                - 1 indicates buffer has been successfully allocated to the corresponding process.
+                - 2 indicates buffer has not been allocated.
 
 
 
