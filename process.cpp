@@ -11,6 +11,7 @@
 #include<semaphore.h>
 #include <stdio.h> 
 using namespace std; 
+
 sigset_t myset;
 int *shmM,*shmP,*s,shmidP,shmidM,blockNumber,*startingAddress,i,bno,enteriesP,enteriesM,count=0;
 char type;
@@ -151,4 +152,3 @@ int main()
    	shmdt(shmM); 
  	return 0; 
 } 
-
