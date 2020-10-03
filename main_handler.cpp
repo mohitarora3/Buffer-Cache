@@ -15,6 +15,7 @@
 #include<fcntl.h>
 using namespace std;
 #define MAX_BLOCK_NUMBER 100
+
 pid_t pidChild; //pid for process that is processing asynchronous write
 int processId,requestedBlockNo,*shmP,*shmM,shmidP,shmidM,enteriesM,enteriesP=0;  //shmP,shmM-shared variables
 int *s,i,randomIndex,freedBlockNo,Count=1,current=1,Count1;
@@ -22,6 +23,7 @@ bool delayedWrite;  //if the type of request is write then it is set to indicate
 vector<vector <int> >  busyBuffer(MAX_BLOCK_NUMBER);  //for storing sleeping processes for blocked buffer
 vector<int> emptyFreeList;		//for storing sleeping processes for any freed buffer
 void wakeUp();
+
 class node
 {
 	node *left; 	//points to left buffer in hash queue
@@ -46,8 +48,10 @@ class node
 	}
 	
 };
+
 vector <pair<int,node *> > aWrite; //to store which child is handling asnchronous write of which block
 node *delayedBuffer;
+
 class bufferCache
 {
 
@@ -80,6 +84,7 @@ class bufferCache
 	static void myHandler(int, siginfo_t *,void *);
 
 }b;
+
 node* search(pid_t pid)
 {
 	int i;
@@ -94,6 +99,7 @@ node* search(pid_t pid)
 		}
 	}
 }
+
 void bufferCache::myHandler(int sig, siginfo_t *siginfo, void *context)
 	{
 			cout<<"\nAsnchronous Writter process--------------------------\n";
@@ -135,10 +141,12 @@ node* bufferCache::updateStatusToFree(int bno)
 	}
 	return NULL;
 }
+
 void bufferCache::markDelayedWrite(node* temp)
 {
 	temp->delayedWrite=1;
 }
+
 node* bufferCache::addToHashQueue(int bno)
 {
 	int hQNumber=bno%4;
@@ -161,6 +169,7 @@ node* bufferCache::addToHashQueue(int bno)
 	}
 	return temp;
 }
+
 void bufferCache::deleteFromHashQueue(int bno)
 {
 	int hQNumber=bno%4;				//removes a buffer from hash queue, it can be at any place in the list
@@ -188,6 +197,7 @@ void bufferCache::deleteFromHashQueue(int bno)
 		delete temp;
 	}
 }
+
 void bufferCache::removeFromFreeList(node *temp)
 {
 	
@@ -217,6 +227,7 @@ void bufferCache::removeFromFreeList(node *temp)
 	}
 
 }
+
 node* bufferCache::removeFromFrontFreeList()
 {
 	if(fHead!=NULL)
@@ -235,6 +246,7 @@ node* bufferCache::removeFromFrontFreeList()
 	}
 	return NULL;
 }
+
  void bufferCache::addToFrontFreeList(node *temp)
  {
 
@@ -252,7 +264,6 @@ node* bufferCache::removeFromFrontFreeList()
 
  	}
  }
-
 
 void bufferCache::addToFreeList(node* temp)		//always add to tail never create new node, node is addedd that has been already passed as argument
 {
@@ -301,7 +312,6 @@ void bufferCache::display()
 	cout<<endl;
 	
 }
-
 
 string bufferCache:: getBlock(int bno)
 {
@@ -375,10 +385,7 @@ string bufferCache:: getBlock(int bno)
 	}
 	free:        //if buffer is not found on hashqueue and free list is empty
 	cout<<"\nFree List is empty";
-
 	return "No Free Buffer";
-	
-	
 
 	
 }
@@ -422,6 +429,7 @@ void wakeUp()
 		}
 
 }
+
 int main() 
 { 
 	node *released;
