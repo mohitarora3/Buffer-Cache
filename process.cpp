@@ -20,16 +20,11 @@ sem_t *sem; //semaphore
 
 void requestBuffer(sem_t *sem)
 {
-	//cout<<*shmP<<"\n";
-	//cout<<"no\n";
-	//sem_wait(sem);
-	//cout<<"yes\n";
 	enteriesP=*shmP;
 	shmP[enteriesP*3+1]=1; //1 indicating requesting buffer for block 
 	shmP[enteriesP*3+2]=pid;
 	shmP[enteriesP*3+3]=blockNumber;
 		*shmP=*shmP+1;
-	//sem_post(sem);
 	
 }
 void releaseBuffer()
