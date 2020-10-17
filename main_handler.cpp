@@ -110,14 +110,11 @@ void bufferCache::myHandler(int sig, siginfo_t *siginfo, void *context)
 			cout<<"Assynchronous write for block number: "<<temp->blockNumber<<" is completed\n";
 			temp->delayedWrite=0;
 			temp->status="FREE";
-			//delayedBuffer->right=NULL;
-			//delayedBuffer->left=NULL;
 			temp->fRight=NULL;
 			temp->fLeft=NULL;
 			b.addToFrontFreeList(temp);
 			cout<<"Suceessfully added buffer to the front of free list\n";
 			freedBlockNo=delayedBuffer->blockNumber;  //making freedBlockNo is equal to block number of delayed marked buffer whose asynchronous write has completed so that wake up function correctly wakes up sleeping processess waiting for that particular block number 
-			//aWrite.erase(pidChild);
 			wakeUp();
 			b.display();
 			
