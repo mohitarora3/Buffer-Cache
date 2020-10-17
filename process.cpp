@@ -107,7 +107,7 @@ void mySIGINT(int sig)
 }
 int main() 
 { 
-	//sem=sem_open("/SEM_HERE",O_CREAT|O_EXCL,0644,5);
+	
 
 	keyP = ftok("/home/mohit/Documents/mohit",65); 
   	keyM= ftok("/home/mohit/Documents/mohit",66);
