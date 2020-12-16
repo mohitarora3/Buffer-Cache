@@ -64,7 +64,7 @@ class bufferCache
 	{
 	    int i;
 		node *temp;
-		hHead[0]=hHead[1]=hHead[2]=hHead[3]=hTail[0]=hTail[1]=hTail[2]=hTail[3]=fHead=fTail=NULL;
+		hHead[0]=hHead[1]=hHead[2]=hHead[3]=hTail[0]=hTail[1]=hTail[2]=hTail[3]=fHead=fTail=NULL;  //initializing all pointers to null
 		for(i=1;i<=2;i++)
 		{
 			temp=addToHashQueue(i);
